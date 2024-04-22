@@ -1,7 +1,7 @@
 # CMPSC431WFinalProject
-Formula 1 database system for CMPSC431W Final Project Deliverable III. This repository contains the SQL schema and data exports for the final project, along with a CLI script for database manipulation and querying.
+### Formula 1 database system for CMPSC431W Final Project Deliverable III. This repository contains the SQL schema and data exports for the final project, along with a CLI script for database manipulation and querying.
 
-To recreate database locally:
+**To recreate database locally:**
 
 1. Download a copy of the repository:
 git clone https://github.com/juleshetzler/CMPSC431WFinalProject.git<br>
