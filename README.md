@@ -4,7 +4,7 @@ Formula 1 database system for CMPSC431W Final Project Deliverable III. This repo
 To recreate database locally:
 
 1. Download a copy of the repository:
-git clone https://github.com/juleshetzler/CMPSC431WFinalProject.git
+git clone https://github.com/juleshetzler/CMPSC431WFinalProject.git<br>
 cd yourrepository
 
 2. Create a new database to import your SQL file into:
