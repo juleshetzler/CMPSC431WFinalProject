@@ -7,16 +7,16 @@ To recreate database locally:
 git clone https://github.com/juleshetzler/CMPSC431WFinalProject.git<br>
 cd yourrepository
 
-2. Create a new database to import your SQL file into:
+2. Create a new database to import your SQL file into:<br>
 createdb -U username dbname
 
 ** A quick note about the full_database.sql file: You may have to convert the encoding in Notepad++ to UTF-8-BOM if you get a syntax error when trying to run the psql command in step 3. **
 
-3. Use the psql command to import the full_database.sql into the newly created database:
+3. Use the psql command to import the full_database.sql into the newly created database:<br>
 psql -U username -d new_dbname -f full_database.sql
 
-4. Connect to and test the database (or open in pgAmin4): 
-psql -U username -d new_dbname
+4. Connect to and test the database (or open in pgAmin4): <br>
+psql -U username -d new_dbname<br>
 \dt (to show all tables)
 
 
