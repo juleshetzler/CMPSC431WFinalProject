@@ -1,5 +1,13 @@
 # CMPSC431WFinalProject
-### Formula 1 database system for CMPSC431W Final Project Deliverable III. This repository contains the SQL schema and data exports for the final project, along with a CLI script for database manipulation and querying.
+<br>
+### Formula 1 database system for CMPSC431W Final Project Deliverable III. This repository contains project documentation, a file for the full database, and a CLI script for database manipulation and querying.
+<br>
+
+**Documentation for how to use the database system:**<br>
+Can be found in CMPSC 431W Final Project Stage III.pdf
+
+**Demo video can be found at this link:**<br>
+https://youtu.be/XHr-oebJ6e8
 
 **To recreate database locally:**
 
@@ -19,7 +27,8 @@ psql -U username -d new_dbname -f full_database.sql
 psql -U username -d new_dbname<br>
 \dt (to show all tables)
 
-
+**Python Script to test CLI:**<br>
+ Can be found in DatabaseCLI folder
 
 
 
