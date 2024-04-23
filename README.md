@@ -1,6 +1,6 @@
-# CMPSC431WFinalProject
+# CMPSC431W Final Project
 <br>
-###Formula 1 database system for CMPSC431W Final Project Deliverable III. This repository contains project documentation, a file for the full database, and a CLI script for database manipulation and querying.###
+## Formula 1 database system for CMPSC431W Final Project Deliverable III. This repository contains project documentation, a file for the full database, and a CLI script for database manipulation and querying.
 <br><br>
 
 **Documentation for how to use the database system:**<br>
