@@ -4,17 +4,20 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 # Function to establish a connection to the database
 def connect_to_db():
-    connection = psycopg2.connect( # All the database info
-        user="postgres",
-        password="Froggy98!",
-        host="127.0.0.1",
-        port="5432",
-        database="postgres"
-    )
-
-    connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT) # Set connection to autocommit
-
-    return connection
+    try:
+        connection = psycopg2.connect(  # Use the input values to connect to the database
+            user=user,
+            password=password,
+            host=host,
+            port=port,
+            database=database
+        )
+        connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)  # Set connection to autocommit
+        print("Connected successfully.")
+        return connection
+    except Exception as e:
+        print(f"Failed to connect to the database: {e}")
+        return None
 
 # Function to execute a query
 def execute_query(query, args=None):
@@ -52,6 +55,7 @@ def execute_query(query, args=None):
 def run_cli():
     while True:
         print("""
+        -------------------------------------------------------------------------------------------
         Welcome to the F1 Database! 
         
         Records are kept since 1950. Please keep in mind entries are case-sensitive 
@@ -69,6 +73,7 @@ def run_cli():
         10. Update points for a constructor and driver
         
         Enter any other number to exit. 
+        -------------------------------------------------------------------------------------------
         """) # Print options for user to select
         choice = input("\n\t\tEnter the number of the operation you want to perform: ") # Get user choice
 
@@ -94,9 +99,9 @@ def run_cli():
                 if choice == "1": # Insert a driver
                     try:
                         driverid = input("\n\t\tEnter the driver identification number (ex: 900): ")  # Get driver id
-                        forename = input("\t\tEnter the first name of the driver (ex: 'Jules'): ") # Get driver forename
-                        surname = input("\t\tEnter the last name of the driver (ex: 'Hetzler'): ") # Get driver surname
-                        code = input("\t\tEnter the three character driver code (ex: 'HET'): ") # Get driver code
+                        forename = input("\t\tEnter the first name of the driver (ex: 'Jules'): ")  # Get driver forename
+                        surname = input("\t\tEnter the last name of the driver (ex: 'Hetzler'): ")  # Get driver surname
+                        code = input("\t\tEnter the three character driver code (ex: 'HET'): ")  # Get driver code
                         dob = input("\t\tEnter the driver's date of birth (ex: '2002-08-16'): ")  # Get driver dob
                         nationality = input("\t\tEnter the driver's nationality (ex: 'American'): ")  # Get driver nationality
                         home = input("\t\tEnter the driver's current country of residence (ex: 'USA'): ")  # Get driver home
@@ -108,6 +113,9 @@ def run_cli():
                         # Formulate query to add driver to drivers
                         query = f"INSERT INTO drivers ({', '.join(columns)}) VALUES ({', '.join(values_str)});"
 
+                        print("Columns:", columns)
+                        print("Values:", values)
+                        print("Query:", query)
                         # Execute query
                         execute_query(query)
                         print(f"\n\t\tDriver {driverid} successfully added!") # Operation success
@@ -118,10 +126,9 @@ def run_cli():
                 elif choice=="2": # Insert a circuit
                     try:
                         circuitid = input("\n\t\tEnter the circuit identification number (ex: 90): ")  # Get circuit id
-                        name = input("\t\tEnter the name of the circuit (ex: 'Maple Treeway'): ") # Get circuit name
-                        location = input("\t\tEnter the name of the circuit location (ex: 'Brooklyn'): ") # Get circuit location
-                        country = input("\t\tEnter the name of the circuit country (ex: 'USA'): ") # Get circuit country
-
+                        name = input("\t\tEnter the name of the circuit (ex: 'Maple Treeway'): ")  # Get circuit name
+                        location = input("\t\tEnter the name of the circuit location (ex: 'Brooklyn'): ")  # Get circuit location
+                        country = input("\t\tEnter the name of the circuit country (ex: 'USA'): ")  # Get circuit country
 
                         columns1 = ['circuitid', 'circuit_name']  # Put columns into list for query 1
                         columns2 = ['circuitid', 'circuit_location'] # Put columns into list for query 2
@@ -174,8 +181,8 @@ def run_cli():
 
                 elif choice=="3": # Insert a constructor
                     try:
-                        constructorid = input("\n\t\tEnter the constructor identification number (ex: 230): ") # Get constructor id
-                        name = input("\t\tEnter the constructor name (ex: 'MINI'): ") # Get constructor name
+                        constructorid = input("\n\t\tEnter the constructor identification number (ex: 230): ")  # Get constructor id
+                        name = input("\t\tEnter the constructor name (ex: 'MINI'): ")  # Get constructor name
                         home = input("\t\tEnter the constructor home (ex: 'UK'): ")  # Get constructor home
 
                         columns = ['constructorid', 'constructor_name', 'constructor_home'] # Put columns into list for query
@@ -343,8 +350,8 @@ def run_cli():
 
             elif choice == "6": # Sorting Operation (Sort drivers or constructors by points)
                 print("""
-                1. Sort drivers by points
-                2. Sort constructors by points""") # Print options for user to select
+                1. Sort by drivers
+                2. Sort by constructors""") # Print options for user to select
                 choice = input("\n\t\tEnter the number of the operation you want to perform: ")  # Get choice from user
 
                 if choice == "1": # Sort by drivers
@@ -503,7 +510,7 @@ def run_cli():
             elif choice == "10": # Transaction Operation (Update driver results and constructor points)
                 try:
                     driverid = input("\n\t\tEnter the driver identification number (ex: 857): ")  # Get driver id
-                    raceid = input("\t\tEnter the race identification number (ex: 1110): ")  # Get race id
+                    raceid = input("\t\tEnter the race identification number (ex: 1100): ")  # Get race id
                     constructorid = input("\t\tEnter the constructor identification number (ex: 1): ")  # Get constructor id
                     points = input("\t\tEnter the points earned (ex: 10): ")  # Get points
 
@@ -546,4 +553,11 @@ def run_cli():
                         connection.close()
 
 # Run
-run_cli()
+if __name__ == "__main__":
+    print("To connect to the database, please enter the following:\n")
+    user = input("\n\t\tEnter database username: ")  # Get username
+    password = input("\n\t\tEnter database password: ")  # Get password
+    host = input("\n\t\tEnter the host: ")  # Get host
+    port = input("\n\t\tEnter the port: ")  # Get port
+    database = input("\n\t\tEnter the database name: ")  # Get database name
+    run_cli()
