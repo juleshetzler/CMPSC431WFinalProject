@@ -65,7 +65,7 @@ def run_cli():
         6. List drivers or constructors by points
         7. Find drivers and their teams per race
         8. Group drivers by nationality
-        9. Find drivers who have completed a race in a higher position than their grid position
+        9. Find races in which a driver finished in a higher position than their grid position
         10. Update points for a constructor and driver
         
         Enter any other number to exit. 
@@ -93,11 +93,11 @@ def run_cli():
 
                 if choice == "1": # Insert a driver
                     try:
-                        driverid = input("\n\t\tEnter the driver identification number (ex: 1): ")  # Get driver id
-                        forename = input("\t\tEnter the first name of the driver (ex: 'John'): ") # Get driver forename
-                        surname = input("\t\tEnter the last name of the driver (ex: 'Doe'): ") # Get driver surname
-                        code = input("\t\tEnter the three character driver code (ex: 'DOE'): ") # Get driver code
-                        dob = input("\t\tEnter the driver's date of birth (ex: 'YYYY-MM-DD'): ")  # Get driver dob
+                        driverid = input("\n\t\tEnter the driver identification number (ex: 900): ")  # Get driver id
+                        forename = input("\t\tEnter the first name of the driver (ex: 'Jules'): ") # Get driver forename
+                        surname = input("\t\tEnter the last name of the driver (ex: 'Hetzler'): ") # Get driver surname
+                        code = input("\t\tEnter the three character driver code (ex: 'HET'): ") # Get driver code
+                        dob = input("\t\tEnter the driver's date of birth (ex: '2002-08-16'): ")  # Get driver dob
                         nationality = input("\t\tEnter the driver's nationality (ex: 'American'): ")  # Get driver nationality
                         home = input("\t\tEnter the driver's current country of residence (ex: 'USA'): ")  # Get driver home
 
@@ -108,9 +108,6 @@ def run_cli():
                         # Formulate query to add driver to drivers
                         query = f"INSERT INTO drivers ({', '.join(columns)}) VALUES ({', '.join(values_str)});"
 
-                        print("Columns:", columns)
-                        print("Values:", values)
-                        print("Query:", query)
                         # Execute query
                         execute_query(query)
                         print(f"\n\t\tDriver {driverid} successfully added!") # Operation success
@@ -120,10 +117,10 @@ def run_cli():
 
                 elif choice=="2": # Insert a circuit
                     try:
-                        circuitid = input("\n\t\tEnter the circuit identification number (ex: 1): ")  # Get circuit id
-                        name = input("\t\tEnter the name of the circuit (ex: 'Silverstone Circuit'): ") # Get circuit name
-                        location = input("\t\tEnter the name of the circuit location (ex: 'Silverstone'): ") # Get circuit location
-                        country = input("\t\tEnter the name of the circuit country (ex: 'UK'): ") # Get circuit country
+                        circuitid = input("\n\t\tEnter the circuit identification number (ex: 90): ")  # Get circuit id
+                        name = input("\t\tEnter the name of the circuit (ex: 'Maple Treeway'): ") # Get circuit name
+                        location = input("\t\tEnter the name of the circuit location (ex: 'Brooklyn'): ") # Get circuit location
+                        country = input("\t\tEnter the name of the circuit country (ex: 'USA'): ") # Get circuit country
 
 
                         columns1 = ['circuitid', 'circuit_name']  # Put columns into list for query 1
@@ -177,9 +174,9 @@ def run_cli():
 
                 elif choice=="3": # Insert a constructor
                     try:
-                        constructorid = input("\n\t\tEnter the constructor identification number (ex: 1): ") # Get constructor id
-                        name = input("\t\tEnter the constructor name (ex: 'Williams'): ") # Get constructor name
-                        home = input("\t\tEnter the constructor home (ex: 'USA'): ")  # Get constructor home
+                        constructorid = input("\n\t\tEnter the constructor identification number (ex: 230): ") # Get constructor id
+                        name = input("\t\tEnter the constructor name (ex: 'MINI'): ") # Get constructor name
+                        home = input("\t\tEnter the constructor home (ex: 'UK'): ")  # Get constructor home
 
                         columns = ['constructorid', 'constructor_name', 'constructor_home'] # Put columns into list for query
                         values = [constructorid, name, home] # Put values into list for query
@@ -203,7 +200,7 @@ def run_cli():
                 choice = input("\n\t\tEnter the number of the operation you want to perform: ")  # Get choice from user
                 if choice == "1": # Delete a driver
                     try:
-                        driverid = input("\n\t\tEnter the driver identification number (ex: 1): ")  # Get driver id
+                        driverid = input("\n\t\tEnter the driver identification number (ex: 900): ")  # Get driver id
 
                         # Formulate query to delete driver from drivers
                         query = f"DELETE FROM drivers WHERE driverid={driverid};"
@@ -218,7 +215,7 @@ def run_cli():
 
                 elif choice == "2": # Delete a circuit
                     try:
-                        circuitid = input("\t\tEnter the circuit identification number (ex: 1): ") # Get circuit id
+                        circuitid = input("\t\tEnter the circuit identification number (ex: 90): ") # Get circuit id
 
                         # Start the transaction
                         print("\n\t\tStarting a transaction...") # This is a transaction since a circuit has to be deleted from all 3 tables or none of them
@@ -260,7 +257,7 @@ def run_cli():
 
                 elif choice == "3": # Delete a constructor
                     try:
-                        constructorid = input("\n\t\tEnter the constructor identification number (ex: 1): ")  # Get constructor id
+                        constructorid = input("\n\t\tEnter the constructor identification number (ex: 230): ")  # Get constructor id
 
                         # Formulate query to delete constructor from constructors
                         query = f"DELETE FROM constructors WHERE constructorid={constructorid};"
@@ -275,8 +272,8 @@ def run_cli():
 
             elif choice == "3": # Update Operation (Update a driver's home)
                 try:
-                    driverid = input("\n\t\tEnter the driver identification number (ex: 1): ")  # Get driver id
-                    home = input("\t\tEnter the driver's new home (ex: 'Germany'): ") # Get driver home from user
+                    driverid = input("\n\t\tEnter the driver identification number (ex: 858): ")  # Get driver id
+                    home = input("\t\tEnter the driver's new home (ex: 'Israel'): ") # Get driver home from user
 
                     # Formulate query to update drivers with new home
                     query = f"UPDATE drivers SET driver_home='{home}' WHERE driverid={driverid};"
@@ -346,8 +343,8 @@ def run_cli():
 
             elif choice == "6": # Sorting Operation (Sort drivers or constructors by points)
                 print("""
-                1. Sort by drivers
-                2. Sort by constructors""") # Print options for user to select
+                1. Sort drivers by points
+                2. Sort constructors by points""") # Print options for user to select
                 choice = input("\n\t\tEnter the number of the operation you want to perform: ")  # Get choice from user
 
                 if choice == "1": # Sort by drivers
@@ -421,7 +418,7 @@ def run_cli():
 
             elif choice == "7": # Join Operation (Find drivers and their constructors for a race)
                 try:
-                    raceid = input("\n\t\tEnter the race identification number (ex: 1): ")  # Get race id
+                    raceid = input("\n\t\tEnter the race identification number (ex: 1100): ")  # Get race id
 
                     # Formulate query to find drivers and their constructors for a race
                     query = f"""
@@ -470,7 +467,7 @@ def run_cli():
                 except Exception as e: # If error, notify user
                     print(f"\n\t\tAn error occurred grouping drivers: {e}") # Operation failed
 
-            elif choice == "9":  # Subquery Operation
+            elif choice == "9":  # Subquery Operation (Find races in which a driver finished in a higher position than their grid position)
                 try:
                     driverid = input("\n\t\tEnter the driver identification number (ex: 1): ")  # Get driver id
 
@@ -505,10 +502,10 @@ def run_cli():
 
             elif choice == "10": # Transaction Operation (Update driver results and constructor points)
                 try:
-                    driverid = input("\n\t\tEnter the driver identification number (ex: 1): ")  # Get driver id
-                    raceid = input("\t\tEnter the race identification number (ex: 1): ")  # Get race id
+                    driverid = input("\n\t\tEnter the driver identification number (ex: 857): ")  # Get driver id
+                    raceid = input("\t\tEnter the race identification number (ex: 1110): ")  # Get race id
                     constructorid = input("\t\tEnter the constructor identification number (ex: 1): ")  # Get constructor id
-                    points = input("\t\tEnter the points earned: ")  # Get points
+                    points = input("\t\tEnter the points earned (ex: 10): ")  # Get points
 
                     # Start the transaction
                     print("\n\t\tStarting a transaction...") # This is a transaction since points are updated for a constructor only if a race was updated for a driver
